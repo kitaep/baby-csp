@@ -3,20 +3,26 @@ var passport = require('passport');
 
 var router = express.Router();
 
-/* GET users listing. */
 router.get('/login', function(req, res, next) {
-  res.render('login');
+    if (req.isAuthenticated()) {
+        res.redirect('/');
+    } else {
+        res.render('login');
+    }
 });
 
-router.post('/login/password', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureMessage: true
+
+var fuck = require("../middleware/fuck")
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureMessage: true,
+    failWithError: true
 }));
 
 router.get('/logout', function(req, res, next) {
-  req.logout();
-  res.redirect('/');
+    req.logout();
+    res.redirect('/');
 });
 
 module.exports = router;
