@@ -5,7 +5,7 @@ router.get('/', (req, res) => {
     res.send("fuck u");
 })
 
-const user = require("./user/user");
+const user = require("./user");
 router.use('/user', user);
 
 module.exports = router
