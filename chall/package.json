@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "nodemon app.js -e *"
+    "dev": "nodemon app.js -e *",
+    "build:css": "postcss static/css/tailwind.css -o static/css/style.css"
   },
   "author": "",
   "license": "ISC",
@@ -13,12 +14,13 @@
     "express": "^4.17.2",
     "express-session": "^1.17.2",
     "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
     "nunjucks": "^3.2.3",
     "passport": "^0.5.2",
-    "passport-local": "^1.0.0",
-    "sqlite3": "^5.0.2"
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "tailwindcss": "^3.0.11"
   }
 }

@@ -1,0 +1,28 @@
+version: "3"
+services:
+  chall:
+    build:
+      context: chall
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./chall/:/app/"
+    links:
+      - db
+    depends_on:
+      - db
+    restart:
+      always
+    
+
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: babycsp
+      MYSQL_ROOT_PASSWORD: zzlol
+    volumes:
+      - "./init/:/docker-entrypoint-initdb.d/"
+    ports:
+      - "3306"
