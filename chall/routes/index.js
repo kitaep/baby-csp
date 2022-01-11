@@ -6,10 +6,14 @@ router.get('/', (req, res) => {
     res.render("index");
 })
 
+const authRouter = require("./auth");
+router.use('/', authRouter);
+
 const userRouter = require("./user");
 router.use('/user', loginRequired, userRouter);
 
-const authRouter = require("./auth");
-router.use('/', authRouter);
+
+const boardRouter = require("./board");
+router.use('/board', loginRequired, boardRouter);
 
 module.exports = router

@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS nonces (
 
 CREATE TABLE IF NOT EXISTS board (
     id bigint(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    uuid VARCHAR(50) NOT NULL,
     title VARCHAR(50) NOT NULL,
     content TEXT NOT NULL,
     username TEXT NOT NULL,
@@ -22,8 +23,4 @@ CREATE TABLE IF NOT EXISTS board (
 
 CREATE USER 'hspace'@'localhost';
 
---GRANT SELECT ON chall.users TO 'hspace'@'localhost';
 GRANT INSERT ON babycsp.users TO 'hspace'@'localhost';
-
---GRANT SELECT ON chall.board TO 'hspace'@'localhost';
---GRANT INSERT ON chall.board TO 'hspace'@'localhost';

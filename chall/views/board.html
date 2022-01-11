@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table border=1>
+    <thead>
+        <tr>
+            <th>title</th>
+            <th>admin_viewed</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in results %}
+        <tr>
+            <td><a href="view/{{result.uuid}}">{{ result.title }}</a></td>
+            <td>{{ result.admin_viewed != 0 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    
+
+{% endblock %}
