@@ -7,23 +7,24 @@ var db = require('../db');
 module.exports = function() {
 
     passport.use(new Strategy(function(username, password, cb) {
-        db.query('SELECT * FROM users WHERE username=?', [ username ], function(err, row, fields) {
+        db.query('SELECT * FROM users WHERE username = ?', [ username ], function(err, row, fields) {
             if (err) { return cb(err); }
             if (!row[0]) { return cb(null, false, { message: 'Incorrect username or password.' }); }
             console.log(row)
             crypto.pbkdf2(password, row[0].salt, 310000, 32, 'sha256', function(err, hashedPassword) {
-            if (err) { return cb(err); }
-            if (!crypto.timingSafeEqual(row[0].hashed_password, hashedPassword)) {
-                return cb(null, false, { message: 'Incorrect username or password.' });
-            }
-            
-            var user = {
-                id: row[0].id,
-                username: row[0].username,
-                nonceFlag: row[0].nonce_flag
-            };
+                if (err) { return cb(err); }
+                console.log(Buffer.from(row[0].hashed_password.toString(), "base64"), hashedPassword)
+                if (!crypto.timingSafeEqual(Buffer.from(row[0].hashed_password.toString(), "base64"), hashedPassword)) {
+                    return cb(null, false, { message: 'Incorrect username or password.' });
+                }
+                
+                var user = {
+                    id: row[0].id,
+                    username: row[0].username,
+                    nonceFlag: row[0].nonce_flag
+                };
 
-            return cb(null, user);
+                return cb(null, user);
             });
         });
 

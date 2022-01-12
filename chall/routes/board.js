@@ -45,6 +45,7 @@ router.get("/view/:uuid", (req, res, next) => {
 
         db.query("SELECT * FROM users WHERE username = ?", [content_user], (error, results, fields) => {
             if (error) { return next(error) }
+            if (!results[0]) { return res.sendStatus(500) }
             console.log(results)
             nonceFlag = results[0].nonce_flag;
     
@@ -61,13 +62,18 @@ router.get("/view/:uuid", (req, res, next) => {
                 });
             };
             
-            res.set("Content-Security-Policy",`default-src 'none'; script-src 'nonce-${_nonce}'; style-src *; font-src *; base-uri 'none';`);
-            res.send(content);
+            res.send(`
+                <html>
+                <head>
+                    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'nonce-${_nonce}'; style-src 'self' 'unsafe-inline'; img-src *;">
+                    <script nonce='${_nonce}'>document.write("hi")</script>
+                    ${content}
+                </head>
+                </html>
+            `);
         });
     
     });
 });
-
-//router.get("/{uid}")
 
 module.exports = router;

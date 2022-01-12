@@ -5,11 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "nodemon app.js -e *",
-    "build:css": "postcss static/css/tailwind.css -o static/css/style.css"
+    "dev": "nodemon app.js -e *"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "kitae",
   "dependencies": {
     "express": "^4.17.2",
     "express-session": "^1.17.2",
@@ -21,7 +19,6 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
-    "tailwindcss": "^3.0.11"
+    "nodemon": "^2.0.15"
   }
 }

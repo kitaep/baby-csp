@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS board (
     admin_viewed BOOLEAN NOT NULL
 );
 
-CREATE USER 'hspace'@'localhost';
+INSERT IGNORE INTO users (username, hashed_password, salt, nonce_flag) VALUES ("admin", "Yh91Gjrv00vH/I+4wigN2OPTgO2bBe4RExzSXZrkLDQ=", "hspace", 0);
 
-GRANT INSERT ON babycsp.users TO 'hspace'@'localhost';
+--CREATE USER 'hspace'@'localhost';
+
+--GRANT INSERT ON babycsp.users TO 'hspace'@'localhost';

@@ -10,6 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-#CMD ["ls"]
-
-CMD ["nodemon", "--legacy-watch", "app.js"]
+CMD ["npm", "start"]

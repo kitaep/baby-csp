@@ -31,8 +31,7 @@ app.use(function(req, res, next) {
 });
 
 const route = require('./routes/index');
-const { set_csp } = require('./middleware/middleware');
-app.use('/', set_csp, route);
+app.use('/', route);
 
 app.listen(port, () => {
     console.log(`server listening on http://localhost:${port}/`)

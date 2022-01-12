@@ -15,6 +15,19 @@ services:
     restart:
       always
     
+  bot:
+    build:
+      context: bot
+      dockerfile: Dockerfile
+    volumes:
+      - "./bot/:/app/"
+    links:
+      - chall
+      - db
+    depends_on:
+      - db
+    restart:
+      always
 
   db:
     image: mariadb:latest

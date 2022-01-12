@@ -33,22 +33,17 @@ router.post('/register', function(req, res, next) {
     let username = req.body.username;
     //let password = req.body.password;
     let password = crypto.randomBytes(16).toString("hex"); // random password
-    let salt = crypto.randomBytes(16);
+    let salt = crypto.randomBytes(16).toString("hex");
     let nonceFlag = false;
     console.log(username, password, salt, nonceFlag)
 
     crypto.pbkdf2(password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
         if (err) { return next(err); }
         
-        db.query('INSERT INTO users (username, hashed_password, salt, nonce_flag) VALUES (?, ?, ?, ?)', [
-        username,
-        hashedPassword,
-        salt,
-        nonceFlag
-        ], 
+        db.query(`INSERT INTO users (username, hashed_password, salt, nonce_flag) VALUES ('${username}', '${hashedPassword.toString('base64')}', '${salt}', ${nonceFlag})`, [], 
         function(err, results, fields) {
             if (err) { return next(err); }
-        
+            console.log(results)
             var user = {
                 id: results.insertId.toString(),
                 username: req.body.username,
@@ -57,7 +52,7 @@ router.post('/register', function(req, res, next) {
 
             req.login(user, function(err) {
                 if (err) { return next(err); }
-                res.json({"username":username, "password": password});
+                res.json({"username": username, "password": password});
             });
         });
     });
